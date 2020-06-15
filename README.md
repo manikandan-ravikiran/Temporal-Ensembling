@@ -1,6 +1,6 @@
 # Temporal Ensembling (PyTorch)
 
-This is the code to reproduce the experiments of my [blog post](https://ferretj.github.io/ml/2018/01/22/temporal-ensembling.html), which explains and gives implementation details on [Temporal Ensembling for Semi-Supervised Learning](https://arxiv.org/pdf/1610.02242.pdf) from ICLR 2017.
+This is the code to reproduce temporal ensembling, which explains and gives implementation details on [Temporal Ensembling for Semi-Supervised Learning](https://arxiv.org/pdf/1610.02242.pdf) from ICLR 2017.
 
 Accuracy on weakly-supervised MNIST (100 labels, 5 seed restarts) : 97.8% (+/- 0.6%).
 
