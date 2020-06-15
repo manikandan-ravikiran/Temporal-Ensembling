@@ -20,7 +20,8 @@ pip install -r requirements.txt
 
 I used PyTorch version 0.3.0.post4 and torchvision version 0.2.0, so these are the recommended versions.
 
-If you want to run it using PyTorch 0.4+, see [this issue](https://github.com/ferretj/temporal-ensembling/issues/1). 
+If you want to run it using PyTorch 0.4+, 
+>> If you want to stick with the latest PyTorch version, in my case a very simple addition in temporal_ensembling.py did the job (line 22) : class_items = (train_dataset.train_labels == i).nonzero()[:, 0]
 
 Install PyTorch and torchvision as shown [here](http://pytorch.org/) according to your specs.
 
