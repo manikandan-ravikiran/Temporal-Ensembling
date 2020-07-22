@@ -20,4 +20,4 @@ data_norm    = 'channelwise'
 divide_by_bs = False
 # RNG
 rng          = np.random.RandomState(42)
-seeds        = [rng.randint(200) for _ in xrange(n_exp)]
+seeds        = [rng.randint(200) for _ in range(n_exp)]
