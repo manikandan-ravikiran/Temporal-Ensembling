@@ -107,10 +107,10 @@ def save_losses(losses, sup_losses, unsup_losses, fname, labels=None):
     colors = [(float(c[0]) / 255, float(c[1]) / 255, float(c[2]) / 255) for c in colors]
 
     fig, axs = plt.subplots(3, 1, figsize=(12, 18))
-    for i in xrange(3):
+    for i in range(3):
         axs[i].tick_params(axis="both", which="both", bottom="off", top="off",    
                            labelbottom="on", left="off", right="off", labelleft="on")
-    for i in xrange(len(losses)):
+    for i in range(len(losses)):
         axs[0].plot(losses[i], color=colors[i])
         axs[1].plot(sup_losses[i], color=colors[i])
         axs[2].plot(unsup_losses[i], color=colors[i])
@@ -178,7 +178,7 @@ def save_seed_samples(fname, indices):
     fig = plt.figure(figsize=(15, 60))
     gs = gsp.GridSpec(20, 5, width_ratios=[1, 1, 1, 1, 1],
                       wspace=0.0, hspace=0.0)
-    for ll in xrange(100):
+    for ll in range(100):
         i = ll // 5
         j = ll % 5
         img = imgs[ll].numpy()
