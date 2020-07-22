@@ -13,7 +13,6 @@ import torchvision.transforms as tf
 
 
 class GaussianNoise(nn.Module):
-    
     def __init__(self, batch_size, input_shape=(1, 28, 28), std=0.05):
         super(GaussianNoise, self).__init__()
         self.shape = (batch_size,) + input_shape
