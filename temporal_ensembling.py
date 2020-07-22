@@ -18,8 +18,8 @@ def sample_train(train_dataset, test_dataset, batch_size, k, n_classes,
     other = torch.zeros(n - k)
     card = k // n_classes
     
-    for i in xrange(n_classes):
-        class_items = (train_dataset.train_labels == i).nonzero()
+    for i in range(n_classes):
+        class_items = (train_dataset.train_labels == i).nonzero()[:, 0]#class_items = (train_dataset.train_labels == i).nonzero()
         n_class = len(class_items)
         rd = np.random.permutation(np.arange(n_class))
         indices[i * card: (i + 1) * card] = class_items[rd[:card]]
@@ -31,11 +31,11 @@ def sample_train(train_dataset, test_dataset, batch_size, k, n_classes,
 
     train_loader = torch.utils.data.DataLoader(dataset=train_dataset, 
                                                batch_size=batch_size,
-                                               num_workers=4,
+                                               num_workers=0,
                                                shuffle=shuffle_train)
     test_loader = torch.utils.data.DataLoader(dataset=test_dataset, 
                                               batch_size=batch_size,
-                                              num_workers=4,
+                                              num_workers=0,
                                               shuffle=False)
     
     if return_idxs:
@@ -106,7 +106,7 @@ def train(model, seed, k=100, alpha=0.6, lr=0.002, beta2=0.99, num_epochs=150,
         w = weight_schedule(epoch, max_epochs, max_val, ramp_up_mult, k, n_samples)
      
         if (epoch + 1) % 10 == 0:
-            print 'unsupervised loss weight : {}'.format(w)
+            print ('unsupervised loss weight : {}'.format(w))
         
         # turn it into a usable pytorch object
         w = torch.autograd.Variable(torch.FloatTensor([w]).cuda(), requires_grad=False)
@@ -126,9 +126,9 @@ def train(model, seed, k=100, alpha=0.6, lr=0.002, beta2=0.99, num_epochs=150,
 
             # save outputs and losses
             outputs[i * batch_size: (i + 1) * batch_size] = out.data.clone()
-            l.append(loss.data[0])
-            supl.append(nbsup * suploss.data[0])
-            unsupl.append(unsuploss.data[0])
+            l.append(loss.item())
+            supl.append(nbsup * suploss.item())
+            unsupl.append(unsuploss.item())
 
             # backprop
             loss.backward()
@@ -148,7 +148,9 @@ def train(model, seed, k=100, alpha=0.6, lr=0.002, beta2=0.99, num_epochs=150,
         z = Z * (1. / (1. - alpha ** (epoch + 1)))
 
         # handle metrics, losses, etc.
+        # print(l,type(l))
         eloss = np.mean(l)
+        # eloss=torch.mean(l).detach().cpu().numpy()
         losses.append(eloss)
         sup_losses.append((1. / k) * np.sum(supl))  # division by 1/k to obtain the mean supervised loss
         unsup_losses.append(np.mean(unsupl))
@@ -162,7 +164,7 @@ def train(model, seed, k=100, alpha=0.6, lr=0.002, beta2=0.99, num_epochs=150,
     model.eval()
     acc = calc_metrics(model, test_loader)
     if print_res:
-        print 'Accuracy of the network on the 10000 test images: %.2f %%' % (acc)
+        print ('Accuracy of the network on the 10000 test images: %.2f %%' % (acc))
         
     # test best model
     checkpoint = torch.load('model_best.pth.tar')
@@ -170,6 +172,6 @@ def train(model, seed, k=100, alpha=0.6, lr=0.002, beta2=0.99, num_epochs=150,
     model.eval()
     acc_best = calc_metrics(model, test_loader)
     if print_res:
-        print 'Accuracy of the network (best model) on the 10000 test images: %.2f %%' % (acc_best)
+        print ('Accuracy of the network (best model) on the 10000 test images: %.2f %%' % (acc_best))
      
     return acc, acc_best, losses, sup_losses, unsup_losses, indices
