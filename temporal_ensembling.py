@@ -4,7 +4,7 @@ import torch
 from torch.autograd import Variable
 import torch.nn as nn
 import torch.nn.functional as F
-from utils import calc_metrics, prepare_mnist, weight_schedule
+from utils import calc_metrics, prepare_mnist, weight_schedule,prepare_kmnist
 
 
 def sample_train(train_dataset, test_dataset, batch_size, k, n_classes,
@@ -75,7 +75,7 @@ def train(model, seed, k=100, alpha=0.6, lr=0.002, beta2=0.99, num_epochs=150,
           print_res=True, **kwargs):
     
     # retrieve data
-    train_dataset, test_dataset = prepare_mnist()
+    train_dataset, test_dataset = prepare_kmnist()
     ntrain = len(train_dataset)
 
     # build model
