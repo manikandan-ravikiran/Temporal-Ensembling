@@ -46,6 +46,7 @@ def prepare_mnist():
 	return train_dataset, test_dataset
 
 
+
 def prepare_fashion_mnist():
 	
 	m = (0.5,)
