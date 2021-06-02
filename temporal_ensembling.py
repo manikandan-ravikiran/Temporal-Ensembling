@@ -4,7 +4,7 @@ import torch
 from torch.autograd import Variable
 import torch.nn as nn
 import torch.nn.functional as F
-from utils import calc_metrics, prepare_mnist, weight_schedule,prepare_kmnist,prepare_fashion_mnist
+from utils import calc_metrics, prepare_mnist, weight_schedule,prepare_kmnist,prepare_fashion_mnist,prepare_emnist
 
 
 def sample_train(train_dataset, test_dataset, batch_size, k, n_classes,

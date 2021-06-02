@@ -46,6 +46,30 @@ def prepare_mnist():
 	return train_dataset, test_dataset
 
 
+def prepare_emnist():
+
+	# Details in https://www.simonwenkel.com/2019/07/16/exploring-EMNIST.html
+	# normalize data
+	m = (0.1307,)
+	st = (0.3081,)
+	normalize = tf.Normalize(m, st)
+		
+	# load train data
+	train_dataset = datasets.EMNIST(
+						root='../data', 
+						train=True, 
+						transform=tf.Compose([tf.ToTensor(), normalize]),  
+						download=True)
+	
+	# load test data
+	test_dataset = datasets.EMNIST(
+						root='../data', 
+						train=False, 
+						transform=tf.Compose([tf.ToTensor(), normalize]))
+	
+	return train_dataset, test_dataset
+
+
 
 def prepare_fashion_mnist():
 	
