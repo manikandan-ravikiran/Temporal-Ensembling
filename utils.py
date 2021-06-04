@@ -56,14 +56,14 @@ def prepare_emnist():
 		
 	# load train data
 	train_dataset = datasets.EMNIST(
-						root='../data', split="letters",
+						root='../data', split="digits",
 						train=True, 
 						transform=tf.Compose([tf.ToTensor(), normalize]),  
 						download=True)
 	
 	# load test data
 	test_dataset = datasets.EMNIST(
-						root='../data', split="letters", 
+						root='../data', split="digits", 
 						train=False, 
 						transform=tf.Compose([tf.ToTensor(), normalize]))
 	
