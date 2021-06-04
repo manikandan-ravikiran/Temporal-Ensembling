@@ -2,9 +2,8 @@
 
 This is the code to reproduce temporal ensembling, which explains and gives implementation details on [Temporal Ensembling for Semi-Supervised Learning](https://arxiv.org/pdf/1610.02242.pdf) from ICLR 2017.
 
-Accuracy on weakly-supervised MNIST (100 labels, 5 seed restarts) : 97.8% (+/- 0.6%).
-
-Best seed accuracy : 98.38%.
+The current code extends to dataset of MNIST, KMNIST, EMNIST and Fashion-MNIST.
+Detailed results are as shown in our paper [Investigating the Effect of Intraclass Variability in Temporal Ensembling](https://arxiv.org/pdf/2008.08956.pdf)
 
 ## Usage
 
@@ -18,12 +17,7 @@ pip install -r requirements.txt
 
 #### Regarding PyTorch and torchvision
 
-I used PyTorch version 0.3.0.post4 and torchvision version 0.2.0, so these are the recommended versions.
-
-If you want to run it using PyTorch 0.4+, 
->> If you want to stick with the latest PyTorch version, in my case a very simple addition in temporal_ensembling.py did the job (line 22) : class_items = (train_dataset.train_labels == i).nonzero()[:, 0]
-
-Install PyTorch and torchvision as shown [here](http://pytorch.org/) according to your specs.
+Install PyTorch>=1.8 and torchvision as shown [here](http://pytorch.org/) according to your specs.
 
 #### Training a model
 
@@ -35,8 +29,13 @@ python mnist_eval.py
 
 You can tweak hyperparameters in the config.py file.
 
+To test across different datasets please see utils.py and use modify prepare_dataset functions.
+
 ## Misc
 
 This code is not a 100% faithful reproduction of the original paper and should not be used as such.
 
 The Theano-based code released by the paper authors can be found [here](https://github.com/smlaine2/tempens).
+ 
+## Acknowledgement
+This repository would not be possible without works and codes of [Ferretj](https://github.com/ferretj/temporal-ensembling) and [smlaine2](https://github.com/smlaine2/tempens).
